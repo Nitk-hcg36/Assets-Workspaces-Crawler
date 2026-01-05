@@ -49,7 +49,13 @@ def push_assets_to_smartsheet():
     ss = smartsheet.Smartsheet(os.getenv("SM_TOKEN"))
     ss.errors_as_exceptions(True)
 
-    SHEET_ID = int(os.getenv("SM_SHEET_ID"))
+    sheet_id_env = os.getenv("SM_SHEET_ID")
+
+    if not sheet_id_env:
+        raise RuntimeError("SM_SHEET_ID secret is missing or empty")
+
+    SHEET_ID = int(sheet_id_env)
+
 
     sheet = ss.Sheets.get_sheet(SHEET_ID)
 
