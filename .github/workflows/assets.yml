@@ -28,5 +28,5 @@ jobs:
           SMARTSHEET_COOKIE: ${{ secrets.SMARTSHEET_COOKIE }}
           SMARTSHEET_XSRF_TOKEN: ${{ secrets.SMARTSHEET_XSRF_TOKEN }}
           SM_TOKEN: ${{ secrets.SM_TOKEN }}
-          SM_SHEET_ID: ${{ secrets.SM_ASSETS_SHEET_ID }}
+          SM_SHEET_ID: ${{ secrets.SM_SHEET_ID  }}
         run: python assets_workspaces.py
