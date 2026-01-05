@@ -1,0 +1,32 @@
+name: Smartsheet Assets Extract
+
+on:
+  workflow_dispatch:   # manual for now
+
+permissions:
+  contents: write
+
+jobs:
+  extract-assets:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install requests pandas urllib3 smartsheet-python-sdk
+
+      - name: Run assets extractor
+        env:
+          SMARTSHEET_COOKIE: ${{ secrets.SMARTSHEET_COOKIE }}
+          SMARTSHEET_XSRF_TOKEN: ${{ secrets.SMARTSHEET_XSRF_TOKEN }}
+          SM_TOKEN: ${{ secrets.SM_TOKEN }}
+          SM_SHEET_ID: ${{ secrets.SM_ASSETS_SHEET_ID }}
+        run: python assets_workspaces.py
